@@ -1,17 +1,17 @@
-# uncurry-this
+# uncurry-x
 
 Creates an uncurried version of a function that takes `this` as the first argument.
 
 ## Installation
 
 ```bash
-npm install uncurry-this
+npm install uncurry-x
 ```
 
 ## Usage
 
 ```javascript
-var uncurryThis = require("uncurry-this");
+var uncurryThis = require("uncurry-x");
 
 function greet(name) {
     return this.greeting + ", " + name + "!";

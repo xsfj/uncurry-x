@@ -11,22 +11,22 @@ npm install uncurry-x
 ## Usage
 
 ```javascript
-var uncurryThis = require("uncurry-x");
+var uncurryThis = require("uncurry-x")
 
 function greet(name) {
-    return this.greeting + ", " + name + "!";
+  return this.greeting + ", " + name + "!"
 }
 
-var greetUnbound = uncurryThis(greet);
+var greetUnbound = uncurryThis(greet)
 
-var context = { greeting: "Hello" };
-greetUnbound(context, "World"); // "Hello, World!"
+var context = { greeting: "Hello" }
+greetUnbound(context, "World") // "Hello, World!"
 
 // Works even after Function.prototype methods are deleted
-delete Function.prototype.call;
-delete Function.prototype.bind;
+delete Function.prototype.call
+delete Function.prototype.bind
 
-greetUnbound(context, "World"); // still works!
+greetUnbound(context, "World") // still works!
 ```
 
 ## API
@@ -36,9 +36,11 @@ greetUnbound(context, "World"); // still works!
 Takes a function and returns an uncurried version where `this` becomes the first parameter.
 
 **Parameters:**
+
 - `fn` (Function): The function to uncurry
 
 **Returns:**
+
 - (Function): The uncurried function with `length` set to `originalLength + 1`
 
 ### `.apply` helper
@@ -46,13 +48,13 @@ Takes a function and returns an uncurried version where `this` becomes the first
 The returned function has an `.apply` method that works like `Function.prototype.apply`:
 
 ```javascript
-var slice = uncurryThis(Array.prototype.slice);
+var slice = uncurryThis(Array.prototype.slice)
 
 // Using .apply
-slice.apply(null, [[10, 20, 30, 40], 1, 3]); // [20, 30]
+slice.apply(null, [[10, 20, 30, 40], 1, 3]) // [20, 30]
 
 // Equivalent to:
-slice([10, 20, 30, 40], 1, 3); // [20, 30]
+slice([10, 20, 30, 40], 1, 3) // [20, 30]
 ```
 
 ## Examples
@@ -60,40 +62,42 @@ slice([10, 20, 30, 40], 1, 3); // [20, 30]
 ### Array methods
 
 ```javascript
-var map = uncurryThis(Array.prototype.map);
-var join = uncurryThis(Array.prototype.join);
+var map = uncurryThis(Array.prototype.map)
+var join = uncurryThis(Array.prototype.join)
 
-var numbers = [1, 2, 3];
-var doubled = map(numbers, function(x) { return x * 2; }); // [2, 4, 6]
-join(doubled, "-"); // "2-4-6"
+var numbers = [1, 2, 3]
+var doubled = map(numbers, function (x) {
+  return x * 2
+}) // [2, 4, 6]
+join(doubled, "-") // "2-4-6"
 ```
 
 ### String methods
 
 ```javascript
-var split = uncurryThis(String.prototype.split);
-var toLowerCase = uncurryThis(String.prototype.toLowerCase);
+var split = uncurryThis(String.prototype.split)
+var toLowerCase = uncurryThis(String.prototype.toLowerCase)
 
-split("foo-bar-baz", "-"); // ["foo", "bar", "baz"]
-toLowerCase("HELLO"); // "hello"
+split("foo-bar-baz", "-") // ["foo", "bar", "baz"]
+toLowerCase("HELLO") // "hello"
 ```
 
 ### Custom methods
 
 ```javascript
 function Counter(start) {
-    this.count = start;
+  this.count = start
 }
 
-Counter.prototype.increment = function(amount) {
-    this.count += amount;
-    return this.count;
-};
+Counter.prototype.increment = function (amount) {
+  this.count += amount
+  return this.count
+}
 
-var increment = uncurryThis(Counter.prototype.increment);
-var counter = new Counter(10);
+var increment = uncurryThis(Counter.prototype.increment)
+var counter = new Counter(10)
 
-increment(counter, 5); // 15
+increment(counter, 5) // 15
 ```
 
 ## Features
